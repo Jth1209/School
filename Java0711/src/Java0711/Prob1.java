@@ -11,6 +11,7 @@ public class Prob1 {
 	public static void main(String[] args) {
 		boolean run1 = true;
 		int balance = 0;
+		int money = 0;
 		String ID = "";
 		String PW = "";
 		String Name = "";
@@ -41,6 +42,7 @@ public class Prob1 {
 			    String UID = sc.nextLine();
 			    System.out.print("패스워드 입력: ");
 			    String UPW = sc.nextLine();
+			    
 			    if((ID.equals(UID)) && (PW.equals(UPW))) {
 			        System.out.println("로그인 성공..."+ Name +"님");
 				}else if((ID.equals(UID)) && (!PW.equals(UPW))){
@@ -50,7 +52,8 @@ public class Prob1 {
 			    }else {
 			    	System.out.println("로그인 성공");
 			    }
-			//예금/출금
+			
+			    //예금/출금
 			}if(select == 3) {
 			    System.out.println("예금 출금");
 				boolean run2 = true;
@@ -61,11 +64,11 @@ public class Prob1 {
 					int select1 = getNum("선택>",sc);
 					
 					if(select1 == 1) {
-						int money = getNum("예금액>",sc);
+						money = getNum("예금액> ",sc);
 						balance += money;
 					}
 					if(select1 == 2) {
-						int money = getNum("출금액>",sc);
+						money = getNum("출금액> ",sc);
 						balance -= money;
 					}
 					if(select1 == 3) {
