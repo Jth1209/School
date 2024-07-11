@@ -39,15 +39,20 @@ public class Prob1 {
 				System.out.println("로그인 처리");
 				System.out.print("아이디 입력: ");
 			    String UID = sc.nextLine();
-			    System.out.print("주민번호 입력: ");
+			    System.out.print("패스워드 입력: ");
 			    String UPW = sc.nextLine();
 			    if((ID.equals(UID)) && (PW.equals(UPW))) {
 			        System.out.println("로그인 성공..."+ Name +"님");
-				}else {
-					System.out.println("아이디나 주민번호가 틀렸습니다. 다시 입력 해주세요.");
+				}else if((ID.equals(UID)) && (!PW.equals(UPW))){
+					System.out.println("로그인 실패:패스워드가 틀림");
+			    }else if((!ID.equals(UID)) && (PW.equals(UPW))){
+					System.out.println("로그인 실패:아이디가 틀림");
+			    }else {
+			    	System.out.println("로그인 성공");
 			    }
 			//예금/출금
 			}if(select == 3) {
+			    System.out.println("예금 출금");
 				boolean run2 = true;
 				while(run2) {
 					System.out.println("-----------------------------");
@@ -70,15 +75,15 @@ public class Prob1 {
 					if(select1 == 4) {
 						run2 = false;
 					}
-					
-					}
-				System.out.println("프로그램 종료");
+				}
+				System.out.println();
+				System.out.println("예금/출금 프로그램 종료");
 			//종료
 			}if(select == 4) {
 				run1 = false;
 			}
 		}
-        System.out.println("프로그램 완전 종료");
+        System.out.println("프로그램 전체 종료");
 
 	}
 }
