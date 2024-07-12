@@ -33,11 +33,12 @@ public class Project11 {
 		boolean run = true;
 		while (run) {
 			System.out.println("-------------------------------------");
-			System.out.println("1.로그인 | 2.회원가입 | 3.예금/출금 | 4.종료");
+			System.out.println("1.로그인 | 2.회원가입 | 3.예금/출금 | 4.삭제 | 5.종료");
 			System.out.println("-------------------------------------");
 			System.out.print("선택> ");
 			int menuNum = Integer.parseInt(scanner.nextLine());
 			switch (menuNum) {
+			
 			case 1:
 				// 로그인 처리
 				System.out.println("로그인 처리");
@@ -58,8 +59,10 @@ public class Project11 {
 				System.out.println(member);
 				
 				break;
-			case 2:
+				
+ 	            case 2:
 				// 회원 가입
+ 	            int same = 1;
 				System.out.println("회원 가입");
 				
 				System.out.println("[필수 정보 입력]"); 
@@ -69,17 +72,38 @@ public class Project11 {
 				String ssn = scanner.nextLine(); 
 				System.out.print("3. 전화번호: "); 
 				String tel = scanner.nextLine();
-				System.out.println();
-				System.out.println("[입력된 내용]");
-				System.out.println("1. 이름: " + name2);
-				System.out.println("2. 주민번호 앞 6자리: " + ssn); 
-				System.out.println("3. 전화번호: " + tel);
-				// 객체 생성
-				list[count] = new Member(name2, ssn, tel);
-				count++;
+				if(count == 10) {
+					System.out.println("사용자 생성 가능 횟수 초과");//사용자 아이디 최대 개수 지정
+					break;
+				}
+				System.out.println("아이디 중복 검사");//중복된 아이디(이름)생성 불가
+				for(int i = 0; i<count; i ++) {
+					if(list[i].name.equals(name2)) {
+						System.out.println("같은 아이디 존재");
+						same = -1;
+						break;
+					}
+				}
+				if(same == 1) {
+					System.out.println();
+					System.out.println("[입력된 내용]");
+					System.out.println("1. 이름: " + name2);
+					System.out.println("2. 주민번호 앞 6자리: " + ssn); 
+					System.out.println("3. 전화번호: " + tel);
+					// 객체 생성
+					list[count] = new Member(name2, ssn, tel);
+					count++;
+				}else {
+					break;
+				}
 				break;
-			case 3:
+			
+ 	            case 3:
 				// 예금 출금
+				if(member == null) {//로그인 미진행 시 예금/출금 기능 사용 불가
+					System.out.println("로그인을 진행해 주세요");
+					break;
+				}
 				System.out.println("예금 출금");
 				boolean run2 = true;
 				
@@ -110,7 +134,26 @@ public class Project11 {
 				}
 				System.out.println("예금/출금 프로그램 종료");
 				break;
-			case 4:
+			
+ 	            case 4://삭제 기능
+				System.out.print("삭제할 계정의 아이디: ");
+				String dname = scanner.nextLine(); 
+				for(int i = 0; i<count; i++) {
+					if(list[i].name.equals(dname)) {
+						list[i] = null;
+						continue;
+					}
+				}
+				for(int i = 0; i< list.length-1; i++) {
+					if(list[i] == null) {
+						list[i] = list[i+1];
+						list[i+1] = null;
+					}
+				}
+				System.out.println("삭제 완료");
+				break;
+			
+ 	            case 5:
 				run = false;
 				break;
 			}
