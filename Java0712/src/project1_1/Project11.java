@@ -1,4 +1,4 @@
-package Project1;
+package project1_1;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -10,23 +10,26 @@ import java.util.Scanner;
 public class Project11 {
 
 	public static void main(String[] args) {
-		Member member = null;
-        Member[] list = null;
 		Scanner scanner = new Scanner(System.in);
+	    int count = 0;//회원의 수
+		Member[] list = new Member[10];
+		
 		try (FileInputStream fis = new FileInputStream("c:\\temp\\members.dat");
 				ObjectInputStream ois = new ObjectInputStream(fis)) {
 			
-			list = (Member[]) ois.readObject();
+			Member[] list2 = (Member[]) ois.readObject();
+			System.arraycopy(list2,0,list,0,list2.length);//1번 배열 0 번째 부터 두번째 배열의 0번 에 리스트2의 길이만큼 복사
 			System.out.println("파일에서 객체를 가져왔습니다.");
-		
-		
 		}catch (IOException | ClassNotFoundException e) {
 			e.printStackTrace();
 		}
-	    for(Member member1:list) {
-	    	System.out.println(member1);
+	    for(Member member:list) {
+	    	if(member != null) {
+	    		System.out.println(member);
+	    		++count;
+	    	}
 	    }
-		int count = 0;
+	    Member member = null;//로그인된 현재 사용자
 		boolean run = true;
 		while (run) {
 			System.out.println("-------------------------------------");
@@ -38,11 +41,10 @@ public class Project11 {
 			case 1:
 				// 로그인 처리
 				System.out.println("로그인 처리");
-				
 				System.out.print("아이디:");  //출력문
 				String name = scanner.nextLine(); // name 변수의 값 입력
 				System.out.print("패스워드:");
-				String strPassword = scanner.nextLine();//패스워드입력 
+				String strPassword = scanner.nextLine();//패스워드입력
 				int find = -1;
 				
 				for(int i = 0; i<list.length; i++) {
@@ -54,10 +56,12 @@ public class Project11 {
 				}
 				System.out.println("인덱스 : "+find);
 				System.out.println(member);
+				
 				break;
 			case 2:
 				// 회원 가입
 				System.out.println("회원 가입");
+				
 				System.out.println("[필수 정보 입력]"); 
 				System.out.print("1. 이름: ");
 				String name2 = scanner.nextLine(); 
@@ -71,14 +75,14 @@ public class Project11 {
 				System.out.println("2. 주민번호 앞 6자리: " + ssn); 
 				System.out.println("3. 전화번호: " + tel);
 				// 객체 생성
-				member = new Member(name2,ssn,tel);
-				list[count] = member;
+				list[count] = new Member(name2, ssn, tel);
 				count++;
 				break;
 			case 3:
 				// 예금 출금
 				System.out.println("예금 출금");
 				boolean run2 = true;
+				
 				while (run2) {
 					System.out.println("-------------------------------------");
 					System.out.println("1.예금 | 2.출금 | 3.잔고 | 4.종료");
@@ -96,7 +100,7 @@ public class Project11 {
 						break;
 					case 3:
 						System.out.print("잔고> ");
-						System.out.print(member.balance);						
+						System.out.println(member.balance);
 						break;
 					case 4:
 						run2 = false;
@@ -111,16 +115,17 @@ public class Project11 {
 				break;
 			}
 		}
-		System.out.println("프로그램 전체 종료");
 		try (FileOutputStream fos = new FileOutputStream("c:\\temp\\members.dat");
-				ObjectOutputStream oos = new ObjectOutputStream(fos)) {
+	             ObjectOutputStream oos = new ObjectOutputStream(fos)) {
 			
-			oos.writeObject(list);
-			System.out.println("객체를 파일에 저장했습니다.");
-		
-		
-		}catch (IOException e) {
+			 oos.writeObject(list);
+	         System.out.println("객체를 파일에 저장했습니다.");
+			
+			
+		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		System.out.println("프로그램 전체 종료");
+
 	}
 }
