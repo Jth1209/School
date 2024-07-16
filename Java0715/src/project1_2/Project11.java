@@ -57,10 +57,10 @@ public class Project11 {
 				String strPassword = scanner.nextLine();//패스워드입력
 				int find = -1;
 				
-				for(int i = 0; i<list.size(); i++) {
-					if(list.get(i).getName().equals(name) && list.get(i).getSsn().equals(strPassword)) {
-						find = i;
-						member = list.get(i);
+				for(Member m : list) {
+					if(m.getName().equals(name) && m.getSsn().equals(strPassword)) {
+						
+						member = m;
 						break;
 					}
 				}
@@ -81,30 +81,27 @@ public class Project11 {
 				String ssn = scanner.nextLine(); 
 				System.out.print("3. 전화번호: "); 
 				String tel = scanner.nextLine();
-				if(count == 10) {
-					System.out.println("사용자 생성 가능 횟수 초과");//사용자 아이디 최대 개수 지정
-					break;
-				}
-				System.out.println("아이디 중복 검사");//중복된 아이디(이름)생성 불가
-				for(int i = 0; i<count; i ++) {
-					if(list.get(i).equals(name2)) {
-						System.out.println("같은 아이디 존재");
-						same = -1;
-						break;
-					}
-				}
-				if(same == 1) {
-					System.out.println();
-					System.out.println("[입력된 내용]");
-					System.out.println("1. 이름: " + name2);
-					System.out.println("2. 주민번호 앞 6자리: " + ssn); 
-					System.out.println("3. 전화번호: " + tel);
+//				if(count == 10) {
+//					System.out.println("사용자 생성 가능 횟수 초과");//사용자 아이디 최대 개수 지정
+//					break;
+//				}
+//				System.out.println("아이디 중복 검사");//중복된 아이디(이름)생성 불가
+//				for(int i = 0; i<count; i ++) {
+//					if(list.get(i).equals(name2)) {
+//						System.out.println("같은 아이디 존재");
+//						same = -1;
+//						break;
+//					}
+//				}
+//				if(same == 1) {
+				System.out.println();
+				System.out.println("[입력된 내용]");
+				System.out.println("1. 이름: " + name2);
+				System.out.println("2. 주민번호 앞 6자리: " + ssn); 
+				System.out.println("3. 전화번호: " + tel);
 					// 객체 생성
-					 list.add(new Member(name2, ssn, tel));
-					count++;
-				}else {
-					break;
-				}
+				list.add(new Member(name2, ssn, tel));
+				count++;
 				break;
 			
  	            case 3:
@@ -157,23 +154,22 @@ public class Project11 {
 				break;
 			
  	            case 5:
+ 	            	Member[] list2 = list.toArray(new Member[list.size()]);//ArrayList를 배열로 바꿔서 저장
+ 	       		try (FileOutputStream fos = new FileOutputStream("c:\\temp\\members.dat");
+ 	       	             ObjectOutputStream oos = new ObjectOutputStream(fos)) {
+ 	       			
+ 	       			 oos.writeObject(list2);
+ 	       	         System.out.println("객체를 파일에 저장했습니다.");
+ 	       			
+ 	       			
+ 	       		} catch (IOException e) {
+ 	       			e.printStackTrace();
+ 	       		}
 				run = false;
 				break;
+				}
 			}
-		}
-		
-		Member[] list2 = list.toArray(new Member[list.size()]);//ArrayList를 배열로 바꿔서 저장
-		try (FileOutputStream fos = new FileOutputStream("c:\\temp\\members.dat");
-	             ObjectOutputStream oos = new ObjectOutputStream(fos)) {
-			
-			 oos.writeObject(list2);
-	         System.out.println("객체를 파일에 저장했습니다.");
-			
-			
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		System.out.println("프로그램 전체 종료");
+			System.out.println("프로그램 전체 종료");
 
-	}
+		}
 }

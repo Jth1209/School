@@ -1,6 +1,14 @@
-package Java0716;
+package project2;
 
 import java.awt.Container;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -20,7 +28,78 @@ public class MyFrame extends JFrame{//윈도우 창 만들어주는 클래스 JF
 	JButton jb4 = new JButton("출금");
 	JButton jb5 = new JButton("잔고");
 	JTextArea ta = new JTextArea();
-	MyFrame(){
+	List<Member> list;
+	Member member;//로그인된 현재 사용자
+	
+	class MyListener implements ActionListener {//로그인 이벤트
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			String name = jt1.getText(); // name 변수의 값 입력
+			String strPassword = jt2.getText();//패스워드 입력
+			
+			for(Member m : list) {
+				if(m.getName().equals(name) && m.getSsn().equals(strPassword)) {
+					member = m;
+					System.out.println("로그인 성공");
+					break;
+				}
+			}
+			System.out.println(member);
+		}
+	}
+	class UserInfo implements ActionListener{
+		
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			 int same = 1;
+				System.out.println("회원 가입");
+				String name2 = jt1.getText(); 
+				String ssn = jt2.getText(); 
+				String tel = jt3.getText();
+				System.out.println("아이디 중복 검사");//중복된 아이디(이름)생성 불가
+				for(Member id: list) {
+					if(id.getName().equals(name2)) {
+						System.out.println("같은 아이디 존재");
+						same = -1;
+						break;
+					}
+				}
+				if(same == 1) {
+				System.out.println();
+				System.out.println("[입력된 내용]");
+				System.out.println("1. 이름: " + name2);
+				System.out.println("2. 주민번호 앞 6자리: " + ssn); 
+				System.out.println("3. 전화번호: " + tel);
+					// 객체 생성
+				list.add(new Member(name2, ssn, tel));
+		}
+	}
+}
+	public MyFrame(){
+		
+		try (FileInputStream fis = new FileInputStream("c:\\temp\\members.dat");
+				ObjectInputStream ois = new ObjectInputStream(fis)) {
+			
+//			List<Member> list2 = (List<Member>) ois.readObject();
+			Member[] list2 = (Member[]) ois.readObject();
+			list = Arrays.asList(list2);
+//			System.arraycopy(list2,0,list,0,list2.length);//1번 배열 0 번째 부터 두번째 배열의 0번 에 리스트2의 길이만큼 복사
+			System.out.println("파일에서 객체를 가져왔습니다.");
+		}catch (IOException | ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+//	    for(Member member: list) {
+//	    	if(member != null) {
+//	    		System.out.println(member);
+//	    		++count;
+//	    	}
+//	    }
+		for(Member member: list) {
+			System.out.println(member);
+		}
+        System.out.println("총 회원 수:"+ list.size());
+	    Member member = null;//로그인된 현재 사용자
 		Container con = this.getContentPane();//패널 만들어주는 Container class
 		con.setLayout(null);//패널의 레이아웃 설정
 		
