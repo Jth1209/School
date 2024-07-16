@@ -22,7 +22,7 @@ public class Project11 {
 			
 //			List<Member> list2 = (List<Member>) ois.readObject();
 			Member[] list2 = (Member[]) ois.readObject();
-			list = Arrays.asList(list2);
+			list = new ArrayList<>(Arrays.asList(list2));
 //			System.arraycopy(list2,0,list,0,list2.length);//1번 배열 0 번째 부터 두번째 배열의 0번 에 리스트2의 길이만큼 복사
 			System.out.println("파일에서 객체를 가져왔습니다.");
 		}catch (IOException | ClassNotFoundException e) {
@@ -155,21 +155,21 @@ public class Project11 {
 			
  	            case 5:
  	            	Member[] list2 = list.toArray(new Member[list.size()]);//ArrayList를 배열로 바꿔서 저장
- 	       		try (FileOutputStream fos = new FileOutputStream("c:\\temp\\members.dat");
- 	       	             ObjectOutputStream oos = new ObjectOutputStream(fos)) {
+ 	            	try (FileOutputStream fos = new FileOutputStream("c:\\temp\\members.dat");
+ 	       	             	ObjectOutputStream oos = new ObjectOutputStream(fos)) {
  	       			
- 	       			 oos.writeObject(list2);
- 	       	         System.out.println("객체를 파일에 저장했습니다.");
+ 	            		oos.writeObject(list2);
+ 	       	         	System.out.println("객체를 파일에 저장했습니다.");
  	       			
  	       			
- 	       		} catch (IOException e) {
- 	       			e.printStackTrace();
- 	       		}
-				run = false;
-				break;
+ 	            	} catch (IOException e) {
+ 	            		e.printStackTrace();
+ 	            	}
+ 	            	run = false;
+ 	            	break;
+					}
 				}
-			}
-			System.out.println("프로그램 전체 종료");
+				System.out.println("프로그램 전체 종료");
 
 		}
 }
