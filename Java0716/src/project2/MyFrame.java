@@ -8,13 +8,15 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import javax.swing.JButton;
@@ -42,6 +44,10 @@ public class MyFrame extends JFrame{//윈도우 창 만들어주는 클래스 JF
 	JTextArea ta = new JTextArea(50,70);
 	List<Member> list = new ArrayList<>();
 	Member member;//로그인된 현재 사용자
+	Connection conn;
+	Statement stmt;
+	ResultSet rs;
+	ResultSet rsmd;
 	
 	public MyFrame(){
 		JPanel jp1 = new JPanel();
@@ -51,22 +57,20 @@ public class MyFrame extends JFrame{//윈도우 창 만들어주는 클래스 JF
 		JPanel jp3_2 = new JPanel();
 		JPanel jp3_3 = new JPanel();
 		
-		try (FileInputStream fis = new FileInputStream("c:\\temp\\members.dat");
-				ObjectInputStream ois = new ObjectInputStream(fis)) {
+		String URL = "jdbc:mysql://localhost:3307/spring5fs";//데이터 베이스 가져오기 SUC
+		String id = "root";
+		String pw = "mysql";
+		try {
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			conn = DriverManager.getConnection(URL,id,pw);
+			stmt = conn.createStatement();
+			ta.setText("접속을 환영합니다.");
 			
-//			List<Member> list2 = (List<Member>) ois.readObject();
-			Member[] list2 = (Member[]) ois.readObject();
-			list = new ArrayList<>(Arrays.asList(list2));//위에서 선언했어도 무조건 선언하고 Arrays.asList()쓰자.*****
-//			System.arraycopy(list2,0,list,0,list2.length);//1번 배열 0 번째 부터 두번째 배열의 0번 에 리스트2의 길이만큼 복사
-			System.out.println("파일에서 객체를 가져왔습니다.");
-		}catch (IOException | ClassNotFoundException e) {
+		} catch (ClassNotFoundException | SQLException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
+		}//-----------------------------------------------------------------------------------------------
 		
-		for(Member member: list) {
-			System.out.println(member);
-		}
-        System.out.println("총 회원 수:"+ list.size());
 	    Member member = null;//로그인된 현재 사용자
 		Container con = this.getContentPane();//패널 만들어주는 Container class
 		con.setLayout(new BorderLayout());//패널의 레이아웃 설정
@@ -82,7 +86,23 @@ public class MyFrame extends JFrame{//윈도우 창 만들어주는 클래스 JF
 		jp1.add(jL); jp1.add(jt1); jp1.add(jL2); jp1.add(jt2); jp1.add(jL3); jp1.add(jt3);
 		jp2.add(ta);
 		jp3_1.add(jb); jp3_1.add(jb2); jp3_2.add(jL4); jp3_2.add(jt4); jp3_2.add(jb3); jp3_2.add(jb4); jp3_3.add(jb5); jp3_3.add(jb6);
-		jb.addActionListener(new Login());
+		jb.addActionListener((e) ->{
+			String name = jt1.getText(); // name 변수의 값 입력
+			String strPassword = jt2.getText();//패스워드 입력
+			boolean flag = true;
+			for(Member m : list) {
+				if(m.getName().equals(name) && m.getSsn().equals(strPassword)) {
+					
+					ta.append("로그인 성공");
+					break;
+				}
+			}
+			if(true) {
+				System.out.println("로그인을 진행해주세요");
+				return;
+			}
+			System.out.println(member);
+		});
 		
 		
 		this.setSize(900, 500);//윈도우 창 크기 설정
@@ -141,28 +161,16 @@ public class MyFrame extends JFrame{//윈도우 창 만들어주는 클래스 JF
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			int same = 1;
-			System.out.println("회원 가입");
-			String name2 = jt1.getText(); 
+			String name = jt1.getText(); 
 			String ssn = jt2.getText(); 
 			String tel = jt3.getText();
-			System.out.println();
-			System.out.println("아이디 중복 검사");//중복된 아이디(이름)생성 불가
-			for(Member id: list) {
-				if(id.getName().equals(name2)) {
-					System.out.println("같은 아이디 존재");
-					same = -1;
-					return;
-				}
-			}
-			System.out.println("사용가능한 아이디 입니다.");
+			String insert = String.format("insert into usr(UsrName,UsrPW,UsrTel) values('%s','%s','%s')", name,ssn,tel);
+//			System.out.println("사용가능한 아이디 입니다.");
 			if(same == 1) {
-			System.out.println();
-			System.out.println("[입력된 내용]");
-			System.out.println("1. 이름: " + name2);
-			System.out.println("2. 주민번호 앞 6자리: " + ssn); 
-			System.out.println("3. 전화번호: " + tel);
-					// 객체 생성
-			list.add(new Member(name2, ssn, tel));
+			ta.setText("[입력된 내용]"+"\n");
+			ta.append("1. 이름: " + name+"\n");
+			ta.append("2. 주민번호 앞 6자리: " + ssn+"\n"); 
+			ta.append("3. 전화번호: " + tel);
 		}
 	}
 		
@@ -184,28 +192,6 @@ public class MyFrame extends JFrame{//윈도우 창 만들어주는 클래스 JF
 	}
 
 }
-	class WindowClosingEventHandler extends WindowAdapter{
-
-		@Override
-		public void windowClosing(WindowEvent e) {
-			
-			Member[] list2 = list.toArray(new Member[list.size()]);//ArrayList를 배열로 바꿔서 저장
-         	try (FileOutputStream fos = new FileOutputStream("c:\\temp\\members.dat");
-    	             	ObjectOutputStream oos = new ObjectOutputStream(fos)) {
-    			
-         			oos.writeObject(list2);
-    	         	System.out.println("객체를 파일에 저장했습니다.");
-         	} catch (IOException e2) {
-         		e2.printStackTrace();
-         	}
-		
-			JFrame frame = (JFrame)e.getWindow();
-			frame.dispose();
-			System.out.println("Window Closing()");
-		}
-		
-	}
-
 	public static void main(String[] args) {
 		MyFrame mf = new MyFrame();
 			
