@@ -80,6 +80,7 @@ if(title2 != null){
     </style>
 </head>
 <body>
+<input type = "hidden" name="addhit">
 <table>
     <tr>
         <th class="num"    >번호    </th>
@@ -104,6 +105,7 @@ while(rs.next()){
         <td><%=num %></td>
         <td style="text-align:left;">
             <a href="view.jsp?num=<%=num %>"><%=title %></a>
+            <input type = "hidden" name = "addhit" value = "<%=num %>">
         </td>
         <td><%=writer %></td>
         <td><%=regtime %></td>

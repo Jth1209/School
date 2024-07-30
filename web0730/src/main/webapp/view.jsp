@@ -18,6 +18,11 @@ String lnum = request.getParameter("num");
 Class.forName("com.mysql.cj.jdbc.Driver");
 conn = DriverManager.getConnection(URL,id,pw);
 
+String sql1 = "update board set hits = hits+1 where num = ?";
+pstmt = conn.prepareStatement(sql1);
+pstmt.setString(1,lnum);
+pstmt.executeUpdate();
+
 String sql = "select * from board where num = ?";
 pstmt = conn.prepareStatement(sql);
 pstmt.setString(1,lnum);
