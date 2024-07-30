@@ -141,5 +141,6 @@ while(rs.next()) {
 <%	
 }
 %>
+</table>
 </body>
 </html>
