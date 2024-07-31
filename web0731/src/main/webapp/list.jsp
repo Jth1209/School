@@ -1,23 +1,13 @@
+<%@page import="board.BoardDTO"%>
+<%@page import="java.util.List"%>
+<%@page import="board.BoardDAO"%>
 <%@page import="java.time.format.DateTimeFormatter"%>
 <%@page import="java.time.LocalDateTime"%>
-<%@page import="java.sql.ResultSet"%>
-<%@page import="java.sql.DriverManager"%>
-<%@page import="java.sql.PreparedStatement"%>
-<%@page import="java.sql.Connection"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%
 
 request.setCharacterEncoding("UTF-8");
-Connection conn = null;
-
-String URL = "jdbc:mysql://localhost:3307/spring5fs";
-String id= "root";
-String pw = "mysql";
-Class.forName("com.mysql.cj.jdbc.Driver");
-conn = DriverManager.getConnection(URL,id,pw);
-PreparedStatement pstmt = null;
-
 LocalDateTime lc = LocalDateTime.now();//스레드 사용할 때 자주 사용함
 
 String now = DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm:ss").format(lc);
@@ -33,23 +23,7 @@ String hits = "";
 //-------------------------------------------------작성자 정보
 
 String wnum = request.getParameter("find");
-String title2 = (String)request.getAttribute("intitle");
-title2 = request.getParameter("intitle");
-String writer2 = (String)request.getAttribute("inwriter");
-title2 = request.getParameter("inwriter");
-String content2 = (String)request.getAttribute("incontent");
-title2 = request.getParameter("incontent");
 
-
-if(title2 != null){
-	sqlTmp = "insert into board (writer,title,content,regtime) values (?,?,?,?)";
-	pstmt = conn.prepareStatement(sqlTmp);
-	pstmt.setString(1,writer2);
-	pstmt.setString(2,title2);
-	pstmt.setString(3,content2);
-	pstmt.setString(4,now);
-	pstmt.executeUpdate();
-}
 /*if(wnum != null){
 	sqlTmp = "update board set title = ?, writer = ?, content = ?, regtime= ?, hits = 0 where num = ?";
 	pstmt = conn.prepareStatement(sqlTmp);
@@ -90,26 +64,21 @@ if(title2 != null){
         <th                >조회수  </th>
     </tr>
 <%
-sqlTmp = "select * from board";
-pstmt = conn.prepareStatement(sqlTmp);
-ResultSet rs = pstmt.executeQuery();
-while(rs.next()){
-	num = rs.getString("num");
-	writer = rs.getString("writer");
-	title = rs.getString("title");
-	content = rs.getString("content");
-	regtime = rs.getString("regtime");
-	hits = rs.getString("hits");
+BoardDAO dao = new BoardDAO();
+List<BoardDTO> list = dao.getBoardList();
+
+for(BoardDTO dto : list){
+	num = String.valueOf(dto.getNum());
 %>
     <tr>
-        <td><%=num %></td>
+        <td><%=dto.getNum() %></td>
         <td style="text-align:left;">
-            <a href="view.jsp?num=<%=num %>"><%=title %></a>
-            <input type = "hidden" name = "addhit" value = "<%=num %>">
+            <a href="view.jsp?num=<%=dto.getNum() %>"><%=dto.getTitle() %></a>
+            <input type = "hidden" name = "addhit" value = "<%=dto.getNum() %>">
         </td>
-        <td><%=writer %></td>
-        <td><%=regtime %></td>
-        <td><%=hits %></td>
+        <td><%=dto.getWriter() %></td>
+        <td><%=dto.getRegtime() %></td>
+        <td><%=dto.getHits() %></td>
     </tr>
 <%
 }
