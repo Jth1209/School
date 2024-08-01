@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
     
 <%
-Cookie cookie = new Cookie("loginId","Kim"); //(key, value)
+Cookie cookie = new Cookie("username","김철수"); //(key, value)
 response.addCookie(cookie);
 %>
 <!DOCTYPE html>
