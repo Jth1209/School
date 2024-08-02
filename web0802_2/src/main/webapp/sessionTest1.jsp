@@ -1,14 +1,10 @@
-<%@page import="util.Cookies"%>
+<%@page import="java.util.Arrays"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     
 <%
-	String email = request.getParameter("email");
-
-	response.addCookie(
-			Cookies.createCookie("email",email,"/",-1)
-		);
-	response.sendRedirect("saveEmail.jsp");
+session.setAttribute("key1","문자열");
+session.setAttribute("key2",Arrays.asList("홍길동","강하나","이하나"));
 %>
 <!DOCTYPE html>
 <html>

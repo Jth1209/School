@@ -9,14 +9,17 @@
 <title>Insert title here</title>
 </head>
 <body>
-<form action = "saveEmailResult.jsp" metho="post">
+<form action = "checkEmailResult.jsp" method="post">
 	<label for = "email"></label>Email:</lable>
 <%
 String email = " ";
+boolean rememberMe = false;
 Cookies cookies = new Cookies(request);
-email = cookies.getValue("email");
+if(cookies.getValue("email")!=null){
+	email = cookies.getValue("email");
+	rememberMe = true;
+}
 
-boolean checked = false;
 
 if(email != null){
 %>
@@ -25,10 +28,12 @@ if(email != null){
 }else {
 %>
 	<input type = "email" id = "email" name = "email" value = "" required><br>
+	
 <%
 }
 %>
-	
+	<input type = "checkBox" id = "rememberMe" name = "rememberMe" <%= rememberMe ? "checked" : "" %>>
+	<label for="rememberMe">Remember Me</label><br>
 	<input type = "submit" value = "Submit">
 </form>
 </body>
