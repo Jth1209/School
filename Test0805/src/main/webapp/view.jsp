@@ -1,5 +1,5 @@
-<%@page import="list.DTO"%>
-<%@page import="list.DAO"%>
+<%@page import="list.ListDTO"%>
+<%@page import="list.ListDAO"%>
 <%@page import="java.sql.DriverManager"%>
 <%@page import="java.sql.ResultSet"%>
 <%@page import="java.sql.PreparedStatement"%>
@@ -7,17 +7,18 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%
+p
+
 request.setCharacterEncoding("UTF-8");//구현부와 화면에 보여지는 부분을 나누어 작성한 형태
 
 String name = (String)session.getAttribute("name");
 
 String lnum = request.getParameter("num");
 
-DAO dao = new DAO();
+ListDAO dao = new ListDAO();
 dao.hits(lnum);
 
-DTO dto = dao.selectNum(lnum);
-
+ListDTO dto = dao.selectNum(lnum);
 %>
 
 <!DOCTYPE html>

@@ -1,24 +1,25 @@
-<%@page import="Login.DTO"%>
-<%@page import="Login.DAO"%>
+<%@page import="Login.LoginDTO"%>
+<%@page import="Login.LoginDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     
 <%
-request.setCharacterEncoding("UTF-8");
-String username = request.getParameter("username");
-String password = request.getParameter("password");
-String email = request.getParameter("email");
+    p
 
-DAO dao = new DAO();
-DTO dto = new DTO(username,password,email);
-dao.insertUser(dto);
+        request.setCharacterEncoding("UTF-8");
+        String username = request.getParameter("username");
+        String password = request.getParameter("password");
+        String email = request.getParameter("email");
 
-out.println("<script type='text/javascript'>");
-out.println("alert('회원가입 성공');");
-out.println("window.location.href = 'index.jsp';");
-out.println("</script>");
+        LoginDAO dao = new LoginDAO();
+        LoginDTO dto = new LoginDTO(username,password,email);
+        dao.insertUser(dto);
 
-%>
+        out.println("<script type='text/javascript'>");
+        out.println("alert('회원가입 성공');");
+        out.println("window.location.href = 'index.jsp';");
+        out.println("</script>");
+    %>
 <!DOCTYPE html>
 <html>
 <head>

@@ -1,5 +1,5 @@
-<%@page import="list.DTO"%>
-<%@page import="list.DAO"%>
+<%@page import="list.ListDTO"%>
+<%@page import="list.ListDAO"%>
 <%@page import="java.sql.DriverManager"%>
 <%@page import="java.sql.ResultSet"%>
 <%@page import="java.sql.PreparedStatement"%>
@@ -13,11 +13,10 @@ String name = (String)session.getAttribute("name");
 
 String lnum = request.getParameter("num");
 
-DAO dao = new DAO();
+ListDAO dao = new ListDAO();
 dao.hits(lnum);
 
-DTO dto = dao.selectNum(lnum);
-
+ListDTO dto = dao.selectNum(lnum);
 %>
 
 <!DOCTYPE html>

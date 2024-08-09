@@ -1,5 +1,5 @@
-<%@page import="list.DTO"%>
-<%@page import="list.DAO"%>
+<%@page import="list.ListDTO"%>
+<%@page import="list.ListDAO"%>
 <%@page import="java.sql.DriverManager"%>
 <%@page import="java.sql.ResultSet"%>
 <%@page import="java.sql.PreparedStatement"%>
@@ -7,13 +7,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%
+p
+
 request.setCharacterEncoding("UTF-8");
 
 String lnum = request.getParameter("num");
 String name = (String)session.getAttribute("name");
 
-DAO dao = new DAO();
-DTO dto = dao.selectNum(lnum);
+ListDAO dao = new ListDAO();
+ListDTO dto = dao.selectNum(lnum);
 %>    
 <!DOCTYPE html>
 <html>

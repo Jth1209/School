@@ -1,15 +1,16 @@
-<%@page import="Login.DTO"%>
-<%@page import="Login.DAO"%>
+<%@page import="Login.LoginDTO"%>
+<%@page import="Login.LoginDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import="java.sql.*" %>
 
 <%
+p
+
     request.setCharacterEncoding("utf-8");
 	
-	DAO dao = new DAO();
-	DTO dto = dao.findId((String)session.getAttribute("id"));
-	
+	LoginDAO dao = new LoginDAO();
+	LoginDTO dto = dao.findId((String)session.getAttribute("id"));
 %>
 
 <!DOCTYPE html>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="Member">
+	<select id="checkUser" parameterType = "Login.LoginDTO" resultType = "int">
+		select count(*) from member where id=#{num} and pw=#{pw};
+	</select>
+	<select id="checkUser" parameterType = "string" resultType = "Login.LoginDTO">
+		select * from member where id=#{num};
+	</select>
+	<update id="updateInfo" parameterType = "Login.LoginDTO">
+		update member set pw=#{pw},name=#{name} where id=#{id};
+	</update>
+	<insert id="insertUser" parameterType = "Login.LoginDTO">
+		insert into member values(#{id},#{pw},#{name});
+	</insert>
+</mapper>

@@ -1,4 +1,4 @@
-<%@page import="list.DAO"%>
+<%@page import="list.ListDAO"%>
 <%@page import="java.sql.DriverManager"%>
 <%@page import="java.sql.Connection"%>
 <%@page import="java.sql.PreparedStatement"%>
@@ -8,14 +8,16 @@
     pageEncoding="UTF-8"%>
     
 <%
-request.setCharacterEncoding("UTF-8");
+    p
 
-String delete = request.getParameter("num");
+    request.setCharacterEncoding("UTF-8");
 
-DAO dao = new DAO();
-dao.delete(delete);
-response.sendRedirect("list.jsp");
-%>
+    String delete = request.getParameter("num");
+
+    ListDAO dao = new ListDAO();
+    dao.delete(delete);
+    response.sendRedirect("list.jsp");
+    %>
 <!DOCTYPE html>
 <html>
 <head>
