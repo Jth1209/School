@@ -1,5 +1,5 @@
-<%@page import="Login.LoginDTO"%>
-<%@page import="Login.LoginDAO"%>
+<%@page import="Login.DTO"%>
+<%@page import="Login.DAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="java.util.HashMap" %>
 <%@ page import="java.util.Map" %>
@@ -11,8 +11,6 @@
 </head>
 <body>
 <%
-p
-
 request.setCharacterEncoding("UTF-8");
     // Sample user data
   
@@ -20,8 +18,8 @@ request.setCharacterEncoding("UTF-8");
     String username = request.getParameter("username");
     String password = request.getParameter("password");
 
-    LoginDAO dao = new LoginDAO();
-    LoginDTO dto = dao.findId(username,password);
+    DAO dao = new DAO();
+    DTO dto = dao.findId(username,password);
     
     if (dto != null) {
         session.setAttribute("name", dto.getName());

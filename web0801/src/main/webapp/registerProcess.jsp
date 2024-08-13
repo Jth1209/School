@@ -1,16 +1,15 @@
-<%@page import="Login.LoginDAO"%>
+<%@page import="Login.DAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     
 <%
-    p
 
     request.setCharacterEncoding("UTF-8");
     String username = request.getParameter("username");
     String password = request.getParameter("password");
     String email = request.getParameter("email");
 
-    LoginDAO dao = new LoginDAO();
+    DAO dao = new DAO();
 
     dao.insertUser(username, password, email);
 

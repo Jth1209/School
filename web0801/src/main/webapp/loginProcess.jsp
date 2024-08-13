@@ -1,4 +1,4 @@
-<%@page import="Login.LoginDAO"%>
+<%@page import="Login.DAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="java.util.HashMap" %>
 <%@ page import="java.util.Map" %>
@@ -10,7 +10,7 @@
 </head>
 <body>
 <%
-p
+
 
 request.setCharacterEncoding("UTF-8");
     // Sample user data
@@ -19,7 +19,7 @@ request.setCharacterEncoding("UTF-8");
     String username = request.getParameter("username");
     String password = request.getParameter("password");
 
-    LoginDAO dao = new LoginDAO();
+    DAO dao = new DAO();
     
     if (dao.fineUser(username,password) == true) {
  

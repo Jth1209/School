@@ -1,4 +1,4 @@
-<%@page import="list.ListDAO"%>
+<%@page import="list.DAO"%>
 <%@page import="java.sql.DriverManager"%>
 <%@page import="java.lang.ProcessBuilder.Redirect"%>
 <%@page import="java.time.format.DateTimeFormatter"%>
@@ -8,11 +8,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%
-p
 
 request.setCharacterEncoding("UTF-8");
 
-ListDAO dao = new ListDAO();
+DAO dao = new DAO();
 
 String wtitle = request.getParameter("title1");
 String wwriter = request.getParameter("writer1");

@@ -1,4 +1,4 @@
-<%@page import="list.ListDAO"%>
+<%@page import="list.DAO"%>
 <%@page import="java.sql.DriverManager"%>
 <%@page import="java.lang.ProcessBuilder.Redirect"%>
 <%@page import="java.time.format.DateTimeFormatter"%>
@@ -8,8 +8,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%
-p
-
 request.setCharacterEncoding("UTF-8");
 
 //-------------------------------------------------작성자 정보
@@ -19,7 +17,7 @@ String wtitle = request.getParameter("title1");
 String wwriter = request.getParameter("writer1");
 String wcontent = request.getParameter("content1");
 
-ListDAO dao = new ListDAO();
+DAO dao = new DAO();
 dao.updateAll(num, wwriter, wtitle, wcontent);
 
 out.println("<script type='text/javascript'>");

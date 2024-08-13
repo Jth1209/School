@@ -1,6 +1,6 @@
-<%@page import="list.ListDTO"%>
+<%@page import="list.DTO"%>
+<%@page import="list.DAO"%>
 <%@page import="java.util.List"%>
-<%@page import="list.ListDAO"%>
 <%@page import="java.time.format.DateTimeFormatter"%>
 <%@page import="java.time.LocalDateTime"%>
 <%@page import="java.sql.ResultSet"%>
@@ -10,11 +10,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%
-p
-
 request.setCharacterEncoding("UTF-8");
 
-ListDAO dao = new ListDAO();
+DAO dao = new DAO();
 
 String wnum = request.getParameter("find");
 String title2 = (String)request.getAttribute("intitle");
@@ -24,11 +22,9 @@ title2 = request.getParameter("inwriter");
 String content2 = (String)request.getAttribute("incontent");
 title2 = request.getParameter("incontent");
 
-List<ListDTO> dto = dao.selectAll();
+List<DTO> dto = dao.selectAll();
 %>
 <%
-p
-
 String name = (String)session.getAttribute("name");
 %>
 <!DOCTYPE html>
@@ -74,53 +70,53 @@ String name = (String)session.getAttribute("name");
 
             <ul class="util">
              	<%
-             	p
+          
 
              	             		if(name != null){
              	%>
-             	<li><a href="#"><%=t( nam%>님</a></li>
+             	<li><a href="#"><%=name %>님</a></li>
              	<%
-             	p
+             	
              	 		
              	             		}else{
              	%>
              	<li><a></a></li>
              	<%
-             	p
+             	
              	 
              	             		}
              	%>
              	<%
-             	p
+             	
 
              	             		if(name != null){
              	%>
              	<li><a href="logout.jsp">Logout</a></li>
              	<%
-             	p
+             	
              	 		
              	             		}else{
              	%>
                 <li><a href="login.jsp">Login</a></li>
              	<%
-             	p
+             	
              	 
              	             		}
              	%>
              	<%
-             	p
+             	
 
              	             		if(name != null){
              	%>
              	<li><a href="userInfo.jsp">정보수정</a></li>
              	<%
-             	p
+             	
              	 		
              	             		}else{
              	%>
                 <li><a href="register.jsp">Join</a></li>
              	<%
-             	p
+             	
              	 
              	             		}
              	%>
@@ -140,9 +136,9 @@ String name = (String)session.getAttribute("name");
 	    </tr>
 	    
 	<%
-	    	p
+	    	
 
-	    		for(ListDTO dt: dto){
+	    		for(DTO dt: dto){
 	    	%>
 	    <tr>
 	        <td><%=dt.getNum() %></td>
