@@ -63,7 +63,7 @@ public class BoardService {
         return new BoardDao().selectOne(num);
     }
 
-    public void writeMsg(String writer, String title, String content)
+    public void writeMsg(String writer, String title, String content,String regtime)
             throws Exception {
 
         if (writer  == null || writer.length()  == 0 ||
@@ -77,17 +77,18 @@ public class BoardService {
         dto.setWriter (writer );
         dto.setTitle  (title  );
         dto.setContent(content);
+        dto.setRegtime(regtime);
 
         new BoardDao().insertOne(dto);
     }
 
     public void updateMsg(
-            String writer, String title, String content, int num)
+            String writer, String title, String content, int num,String regtime)
                     throws Exception {
 
         if (writer  == null || writer.length()  == 0 ||
             title   == null || title.length()   == 0 ||
-            content == null || content.length() == 0) {
+            content == null || content.length() == 0 ) {
 
            throw new Exception("모든 항목이 빈칸 없이 입력되어야 합니다.");
         }
@@ -97,6 +98,7 @@ public class BoardService {
         dto.setWriter (writer );
         dto.setTitle  (title  );
         dto.setContent(content);
+        dto.setRegtime(regtime);
 
         new BoardDao().updateOne(dto);
     }

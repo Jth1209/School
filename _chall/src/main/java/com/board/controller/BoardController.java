@@ -1,6 +1,9 @@
 package com.board.controller;
 
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.LocalTime;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -68,9 +71,11 @@ public class BoardController extends HttpServlet {
             String writer  = request.getParameter("writer" );
             String title   = request.getParameter("title"  );
             String content = request.getParameter("content");
+            String regtime = LocalDate.now() + " " +
+                    LocalTime.now().toString().substring(0, 8);
 
             try {
-                new BoardService().writeMsg(writer, title, content);
+                new BoardService().writeMsg(writer, title, content,regtime);
                 view = "redirect:list";
 
             } catch(Exception e) {
@@ -84,9 +89,11 @@ public class BoardController extends HttpServlet {
             String writer  = request.getParameter("writer" );
             String title   = request.getParameter("title"  );
             String content = request.getParameter("content");
+            String regtime = LocalDate.now() + " " +
+                    LocalTime.now().toString().substring(0, 8);
 
             try {
-                new BoardService().updateMsg(writer, title, content, num);
+                new BoardService().updateMsg(writer, title, content, num,regtime);
                 view = "redirect:list";
 
             } catch(Exception e) {

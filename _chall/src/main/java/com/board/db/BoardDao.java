@@ -19,10 +19,6 @@ public class BoardDao {
 		//default는 false이다.
 		session = sqlsession_f.openSession(true);
 	}
-    private String getCurrentTime() {
-        return LocalDate.now() + " " +
-               LocalTime.now().toString().substring(0, 8);
-    }
 
     // 게시글 갯수 얻기
     public int getNumRecords() {
