@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="Products">
+	<select id="selectAll" parameterType="int" resultType="com.board.db.productpDto">
+		<![CDATA[select * from (select rownum as rn,p.* from (select * from products order by id) p where rownum<#{num}+10) where rn>=#{num}]]>
+	</select>
+	<select id="count" resultType="int">
+		select count(*) from products
+	</select>
+	<select id="selectOne" parameterType="int" resultType="com.board.db.productDto">
+		select * from products where id=#{id}
+	</select>
+	<insert id="insertProducts" parameterType="com.board.db.productDto">
+		insert into products (id,name,description,price,stock) values
+		(products_a.nextval,#{name},#{description},#{price},#{stock})
+	</insert>
+	<update id="updateProducts" parameterType="com.board.db.productDto">
+		update products set
+		name=#{name},description=#{description},price=#{price},stock=#{stock}
+		where id=#{id}
+	</update>
+	<delete id="deleteProducts" parameterType="int">
+		delete from products where id=#{id}
+	</delete>
+</mapper>

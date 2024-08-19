@@ -75,7 +75,7 @@ public class BoardController extends HttpServlet {
                     LocalTime.now().toString().substring(0, 8);
 
             try {
-                new BoardService().writeMsg(writer, title, content,regtime);
+                new BoardService().writeMsg(writer, title, content, regtime);
                 view = "redirect:list";
 
             } catch(Exception e) {
