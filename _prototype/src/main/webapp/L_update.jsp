@@ -8,7 +8,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SKT 하이닉스</title>
+<title>홈페이지</title>
 <link rel="icon" href="img/aespa.ico?after" type="image/x-icon">
 <link rel="stylesheet" href="css/style.css?after">
 <script src="js/ie.js"></script>

@@ -78,7 +78,7 @@ public class LoginController extends HttpServlet {
 				}
 			}
 		}
-		
+		//로그인 기능---------------------------------------------------------------------------------------------------------------------------------------------------
 		else if(com.equals("/login")) {
 			view = "L_login.jsp";
 		}
@@ -153,7 +153,7 @@ public class LoginController extends HttpServlet {
 			view = "redirect:index";
 		}
 		
-		//게시판 기능-------------------------------------------------------------------------
+		//게시판 기능---------------------------------------------------------------------------------------------------------------------------------------------------
 		else if (com.equals("/list")) {
             String tmp = request.getParameter("page");
             int pageNo = (tmp != null && tmp.length() > 0)
@@ -229,7 +229,7 @@ public class LoginController extends HttpServlet {
             new BoardService().deleteMsg(num);
             view = "redirect:list";
         }
-		//쇼핑몰과 장바구니 기능---------------------------------------------------------------------------------------
+		//쇼핑몰과 장바구니 기능-------------------------------------------------------------------------------------------------------------------------------------------
 		
         else if (com.equals("/shop")) {
             String tmp = request.getParameter("page");
@@ -297,7 +297,7 @@ public class LoginController extends HttpServlet {
                 view = "errorBack.jsp";
             }
         }
-		//장바구니 기능----------------------------------------------------------------------------------------------
+		//장바구니 기능--------------------------------------------------------------------------------------------------------------------------------------------------
 		
         else if(com.equals("/cart")) {
         	String tmp = request.getParameter("id");
@@ -345,7 +345,7 @@ public class LoginController extends HttpServlet {
         	new cartDAO().deleteCart(id);
         	view = "redirect:cart";
         }
-		//파일 추가 및 삭제 기능--------------------------------------------------------------------------------------------
+		//파일 추가 및 삭제 기능-------------------------------------------------------------------------------------------------------------------------------------------
         else if(com.equals("/file")){
         	String tmp = request.getParameter("page");
             int pageNo = (tmp != null && tmp.length() > 0)
@@ -400,7 +400,7 @@ public class LoginController extends HttpServlet {
         	}
         	view = "redirect:file";
         }
-		//모든 기능 구현 완료--------------------------------------------------------------------------------------------------
+		//모든 기능 구현 완료---------------------------------------------------------------------------------------------------------------------------------------------
 		//redirect 와 forwarding	 구분 쿼리
 		if (view.startsWith("redirect:")) {
 			response.sendRedirect(view.substring(9));

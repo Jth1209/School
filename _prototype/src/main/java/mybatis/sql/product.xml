@@ -3,7 +3,7 @@
 
 <mapper namespace="Products">
 	<select id="selectAll" parameterType="int" resultType="com.board.db.productpDto">
-		<![CDATA[select * from (select rownum as rn,p.* from (select * from products order by id) p where rownum<#{num}+10) where rn>=#{num}]]>
+		<![CDATA[select * from (select rownum as rn,p.* from (select * from products order by id desc) p where rownum<#{num}+10) where rn>=#{num}]]>
 	</select>
 	<select id="count" resultType="int">
 		select count(*) from products
