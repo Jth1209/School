@@ -31,7 +31,7 @@
 				<li><a href="https://blip.kr/artists/aespa/gallery">GALLERY</a></li>
 				<li><a href="https://www.youtube.com/@aespa">YOUTUBE</a></li>
 				<li><a href="check?identify=1">COMMUNITY</a></li>
-				<li><a href="check?identify=2">자료실</a></li>
+				<li><a href="check?identify=2">UPLOAD</a></li>
 				<li><a href="check?identify=3">GOODS</a></li>
 			</ul>
 

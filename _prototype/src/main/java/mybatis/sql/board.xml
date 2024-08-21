@@ -21,7 +21,7 @@
 		regtime=#{regtime},hits=0 where num=#{num}
 	</update> 
 	<insert id="insertBoard" parameterType="com.board.db.BoardDto">
-		insert into board (num,writer,title,content,regtime,hits)
+		insert into board (num ,writer,title,content,regtime,hits)
 		values (board_a.nextval,#{writer},#{title},#{content},#{regtime},0)
 	</insert>
 	<delete id="deleteBoard" parameterType="int">

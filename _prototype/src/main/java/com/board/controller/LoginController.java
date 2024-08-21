@@ -117,6 +117,9 @@ public class LoginController extends HttpServlet {
 			LoginDto dto = new LoginDto(id,pw,name);
 			dao.updateUser(dto);
 			
+			out.println("<script>alert('회원정보 수정완료. 다시 로그인 해주세요.'); location.href='logoutProcess';</script>"); 
+    		out.close();
+			
 			view = "redirect:logoutProcess";
 			
 		}
@@ -133,7 +136,9 @@ public class LoginController extends HttpServlet {
 			LoginDao dao = new LoginDao();
 			try{
 				dao.insertUser(dto);
-				view="redirect:index";
+				out.println("<script>alert('회원 가입 성공.'); location.href='login';</script>"); 
+        		out.close();
+				view=" ";
 			}catch(Exception e){
 				out.println("<script>alert('이미 존재하는 아이디입니다.'); location.href='register';</script>"); 
         		out.close();
@@ -215,12 +220,13 @@ public class LoginController extends HttpServlet {
                     LocalTime.now().toString().substring(0, 8);
 
             try {
-                new BoardService().updateMsg(writer, title, content, num,regtime);
+                new BoardService().updateMsg(writer, title, content, num, regtime);
                 view = "redirect:list";
 
             } catch(Exception e) {
-                request.setAttribute("errorMessage", e.getMessage());
-                view = "errorBack.jsp";
+            	out.println("<script>alert('잘못된 접근입니다.'); location.href='write';</script>"); 
+        		out.close();
+        		view="redircet:write";
             }
 
         } else if (com.equals("/deleteB")){
@@ -243,9 +249,10 @@ public class LoginController extends HttpServlet {
             view = "shop.jsp";
         }
         else if(com.equals("/deleteP")) {
-        	String id = request.getParameter("id");
-        	new productDao().deleteProduct(Integer.parseInt(id));
-        	view = "redirect:shop";
+			String id = request.getParameter("id");
+			new productDao().deleteProduct(Integer.parseInt(id));
+			view = "redirect:shop";
+
         }
         else if(com.equals("/writeP")) {
         	 String tmp = request.getParameter("id");
@@ -269,7 +276,7 @@ public class LoginController extends HttpServlet {
         	int id = Integer.parseInt(request.getParameter("id"));
         	String name = request.getParameter("name");
         	String description = request.getParameter("description");
-        	int price = Integer.parseInt(request.getParameter("price"));
+        	double price = Double.parseDouble(request.getParameter("price"));
         	int stock = Integer.parseInt(request.getParameter("stock"));
         	
         	 try {
@@ -401,6 +408,7 @@ public class LoginController extends HttpServlet {
         	view = "redirect:file";
         }
 		//모든 기능 구현 완료---------------------------------------------------------------------------------------------------------------------------------------------
+		
 		//redirect 와 forwarding	 구분 쿼리
 		if (view.startsWith("redirect:")) {
 			response.sendRedirect(view.substring(9));

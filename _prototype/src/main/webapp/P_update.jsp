@@ -26,7 +26,7 @@
                 <li><a href="https://blip.kr/artists/aespa/gallery">GALLERY</a></li>
                 <li><a href="https://www.youtube.com/@aespa">YOUTUBE</a></li>
                 <li><a href="check?identify=1">COMMUNITY</a></li>
-                <li><a href="check?identify=2">자료실</a></li>
+                <li><a href="check?identify=2">UPLOAD</a></li>
                 <li><a href="check?identify=3">GOODS</a></li>
             </ul>
 
@@ -55,7 +55,7 @@
 		<form method="post" action="${action}">
 			<div class="mb-3">
 				<label for="title" class="form-label">품목</label> <input type="text"
-					class="form-control" id="title" name="name" value="${msg.price}" required>
+					class="form-control" id="title" name="name" value="${msg.name}" required>
 			</div>
 			<div class="mb-3">
 				<label for="writer" class="form-label">가격</label>
