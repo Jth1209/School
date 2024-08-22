@@ -30,8 +30,6 @@
             </ul>
 
             <ul class="util">
-                <li><a href="#">Contact</a></li>
-                <li><a href="#">Help</a></li>
                 <c:if test="${userLoggedIn}">
                 	<li><a href="logout">${customInfo.name}님, Logout</a></li>
                 </c:if>

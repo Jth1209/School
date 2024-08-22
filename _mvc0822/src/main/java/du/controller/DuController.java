@@ -61,6 +61,7 @@ public class DuController extends HttpServlet {
 			}else {
 				out.println("<script>alert('아이디 또는 비밀번호가 틀렸습니다.'); location.href='loginForm';</script>"); 
 				out.close();
+				view = " ";
 			}
 			
 		}

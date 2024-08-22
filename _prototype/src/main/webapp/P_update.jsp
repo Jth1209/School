@@ -60,12 +60,12 @@
 			<div class="mb-3">
 				<label for="writer" class="form-label">가격</label>
 				<input type="text" class="form-control"
-					id="writer" name="price" value="${msg.price}" required>
+					id="writer" name="price" value=" " required>
 			</div>
 			<div class="mb-3">
 				<label for="writer" class="form-label">재고</label>
 				<input type="text" class="form-control"
-					id="writer" name="stock" value="${msg.stock}" required>
+					id="writer" name="stock" value=" " required>
 			</div>
 			<div class="mb-3">
 				<label for="content" class="form-label">설명</label>
