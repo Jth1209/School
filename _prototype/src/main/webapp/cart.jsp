@@ -61,6 +61,7 @@
 	<div class="container" style="padding-top: 50;">
 		<button type="button" class="btn btn-outline-primary"
 			onclick="location.href='shop'">상품목록으로 돌아가기</button>
+		
 		<table class="table table-bordered table-hover">
 			<tr>
 				<th class="num">카트번호</th>

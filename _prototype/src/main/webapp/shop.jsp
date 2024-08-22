@@ -60,7 +60,7 @@
 	<section>
 	<div class="container" style="padding-top: 50;">
 		<button type="button" class="btn btn-outline-primary" onclick="location.href='writeP'">물품 추가</button>
-		<button type="button" class="btn btn-outline-success" onclick="location.href='cart?id=-1'">장바구니</button>
+		<button type="button" class="btn btn-outline-success" onclick="location.href='cart?id=-1'">장바구니</button><br>
 		<table class="table table-bordered table-hover">
 			<tr>
 				<th class="id">아이디</th>
