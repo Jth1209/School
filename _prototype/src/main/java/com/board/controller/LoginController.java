@@ -96,6 +96,7 @@ public class LoginController extends HttpServlet {
 			if (dao.checkUser(dto) == 1) {
 				LoginDto name = dao.selectOne(id);
 				session.setAttribute("uname", name.getName());
+				session.setAttribute("check", true);
 			}else {
 				out.println("<script>alert('아이디 또는 비밀번호를 틀렸습니다.'); location.href='login';</script>"); 
         		out.close();
@@ -173,6 +174,11 @@ public class LoginController extends HttpServlet {
         } else if (com.equals("/view")){
             int num = Integer.parseInt(request.getParameter("num"));
             new BoardDao().updateHits(num);
+            BoardDao dao = new BoardDao();
+            String wname = dao.selectOne(num).getWriter();//매개변수로 받아온 번호의 작성자 이름
+            String name = (String)session.getAttribute("uname");//로그인 된 사람의 이름
+            boolean check = name.equals(wname);
+            request.setAttribute("check", check);
             request.setAttribute("msg", new BoardService().getMsg(num));
             view = "view.jsp";
 

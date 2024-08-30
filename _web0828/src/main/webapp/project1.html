@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div>
+        <input type="text" name="id" placeholder="ID">
+        <input type="text" name="title" placeholder="Title">
+        <input type="text" name="author" placeholder="Author">
+
+        <button onclick="createPost()">Create</button>
+        <button onclick="readPost()">Read</button>
+        <button onclick="updatePost()">Update</button>
+        <button onclick="deletePost()">Delete</button>
+    </div>
+    <ul class="print-data"></ul>
+    <script>
+        const apiUrl='http://localhost:3000/posts';
+        
+        function readPost() {
+            fetch(apiUrl)
+            .then(response => response.json())
+            .then(data => {
+                const printData = document.querySelector('.print-data');
+                printData.innerHTML="";
+                data.forEach(post => {
+                    printData.innerHTML += `<li>id: ${post.id} <br> title: ${post.title} <br> author: ${post.author}</li>`;//해당 위치에서 id값과 pw 값을 배열로 만들어서 배열 내에 파라미터에 해당하는 요소가 있는지 파악하는 메소드를 사용해서 id와 pw의 존재와 순서가 같을 경우에만 1을 출력하고 나머지는 0을 출력, 이후 이 값을 통해 로그인 처리
+                    //로그인 처리 된 후 input type=hidden을 이용해서 로그인 확인 정보를 모든 페이지에 적용 시켜서 조건문을 통해 로그인 상태 출력
+                });
+            })
+            .catch(error => console.error('Error:', error));
+        }
+        
+        function createPost() {//입력되는 번호 순서대로 sorting하는것도 나중에 해야함. 회원가입 기능 추가할 때 사용
+            const inputId = document.querySelector('input[name=id]').value;
+            const inputTitle = document.querySelector('input[name=title]').value;
+            const inputAuthor = document.querySelector('input[name=author]').value;
+
+            const postParams = {
+                id:inputId,
+                title:inputTitle,
+                author:inputAuthor
+            };
+
+            fetch(apiUrl, {
+                method:'POST',
+                headers:{
+                    'Content-Type': 'application/json'
+                },
+                body:JSON.stringify(postParams)
+            })
+            .then(response => response.json())
+            .then(data=>{
+                console.log('Post created:',data);//console창에 삽입된(?) 데이터를 출력해주는 문장/ 
+                readPost();
+            })
+            .catch(error => console.error('ERROR:',error));
+        }
+        function updatePost() {//회원 정보 수정
+            const inputId = document.querySelector('input[name=id]').value;
+            const inputTitle = document.querySelector('input[name=title]').value;
+            const inputAuthor = document.querySelector('input[name=author]').value;
+
+            const postParams = {
+                id:inputId,
+                title:inputTitle,
+                author:inputAuthor
+            };
+
+            fetch(`${apiUrl}/${inputId}`,{
+                method:'PUT',
+                headers:{
+                    'Content-Type':'application/json'
+                },
+                body:JSON.stringify(postParams)
+            })
+            .then(response => response.json())
+            .then(data =>{
+                console.log('Post updated:',data);
+                readPost();
+            })
+            .catch(error => console.error('ERROR:',error));
+        }
+        
+        function deletePost() {//회원 정보 삭제
+            const inputId = document.querySelector('input[name=id]').value;
+            
+            fetch(`${apiUrl}/${inputId}`,{//각 테이블의 행마다 삭제 버튼을 추가하여 해당하는 아이디를 변수로 받아오면 된다. 
+                method:'DELETE'
+            })
+            .then(response => response.json())
+            .then(data=>{
+                console.log('Post deleted:',data);
+                readPost();
+            })
+            .catch(error => console.error('ERROR:',error));
+        }
+    </script>
+</body>
+</html>

@@ -17,10 +17,17 @@
 	
 	<!-- 참조할 sql이 작성될 xml파일의 위치를 지정해준다. -->
 	<mappers>
+		<!-- 기존 .xml 파일을 이용해서 데이터베이스 연동 -->
 		<mapper resource="mybatis/sql/board.xml"/>
 		<mapper resource="mybatis/sql/cart.xml"/>
 		<mapper resource="mybatis/sql/file.xml"/>
 		<mapper resource="mybatis/sql/member.xml"/>
 		<mapper resource="mybatis/sql/product.xml"/>
+		<!-- 매퍼 클래스를 이용해서 데이터베이스 연동 -->
+		<mapper class="com.board.db.BoardMapper"/>
+		<mapper class="com.board.db.cartMapper"/>
+		<mapper class="com.board.db.fileMapper"/>
+		<mapper class="com.board.db.LoginMapper"/>
+		<mapper class="com.board.db.productMapper"/>
 	</mappers>
 </configuration>

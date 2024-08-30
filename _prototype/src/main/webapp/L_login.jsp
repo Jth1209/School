@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -25,22 +27,16 @@
             </ul>
 
             <ul class="util">
-            <%
-        		if(session.getAttribute("uname") != null){
-        	%>
+            <c:if test="${check}">
             	<li><a href=#>${uname }님</a></li>
             	<li><a href="update">회원정보 수정</a></li>
                 <li><a href="logoutProcess">로그아웃</a></li>
                 <li><a href="delete">회원삭제</a></li>
-                
-            <% 		
-            	}else{
-            %>
+            </c:if>
+			<c:if test="${!check }">
                 <li><a href="login">로그인</a></li>
                 <li><a href="register">회원가입</a></li>
-            <%		
-            	}
-            %>
+			</c:if>
             </ul>
         </div>
     </header>

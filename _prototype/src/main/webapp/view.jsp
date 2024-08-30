@@ -2,10 +2,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%
-	String uname = (String)session.getAttribute("uname");
-	BoardDto dto = (BoardDto)request.getAttribute("msg");
-%>
 
 <!DOCTYPE html>
 <html>
@@ -38,22 +34,16 @@
 			</ul>
 
 			<ul class="util">
-				<%
-        		if(session.getAttribute("uname") != null){
-        	%>
-				<li><a href=#>${uname }님</a></li>
-				<li><a href="update">회원정보 수정</a></li>
-				<li><a href="logoutProcess">로그아웃</a></li>
-				<li><a href="delete">회원삭제</a></li>
-
-				<% 		
-            	}else{
-            %>
-				<li><a href="login">로그인</a></li>
-				<li><a href="register">회원가입</a></li>
-				<%		
-            	}
-            %>
+			<c:if test="${check}">
+            	<li><a href=#>${uname }님</a></li>
+            	<li><a href="update">회원정보 수정</a></li>
+                <li><a href="logoutProcess">로그아웃</a></li>
+                <li><a href="delete">회원삭제</a></li>
+            </c:if>
+			<c:if test="${!check }">
+                <li><a href="login">로그인</a></li>
+                <li><a href="register">회원가입</a></li>
+			</c:if>
 			</ul>
 		</div>
 	</header>
@@ -85,23 +75,18 @@
 					<td>${msg.content}</td>
 				</tr>
 			</table>
-			<%
-			if (uname.equals(dto.getWriter())) {
-			%>
+			<c:if test="${check }">
 			<button type="button" class="btn btn-outline-primary"
 				onclick="location.href='list'">목록보기</button>
 			<button type="button" class="btn btn-outline-secondary"
-				onclick="location.href='write?num=${param.num}'">수정</button>
+				onclick="location.href='write?num=${msg.num}'">수정</button>
 			<button type="button" class="btn btn-outline-success"
-				onclick="location.href='deleteB?num=${param.num}'">삭제</button>
-			<%
-			} else {
-			%>
+				onclick="location.href='deleteB?num=${msg.num}'">삭제</button>
+			</c:if>
+			<c:if test="${!check }">
 			<button type="button" class="btn btn-outline-primary"
 				onclick="location.href='list'">목록보기</button>
-			<%
-			}
-			%>
+			</c:if>
 		</div>
 	</section>
 	<footer>
