@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration>
+    <!-- 콘솔 출력용 appender 설정 -->
+    <appender name="stdout" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <!-- 로그 출력 형식 설정
+                 %d: 로그 발생 시간
+                 %5p: 로그 레벨 (예: INFO, DEBUG 등) - 5자 폭으로 정렬
+                 %c{2}: 로거 이름의 마지막 두 개의 패키지 이름
+                 %m: 로그 메시지
+                 %n: 줄 바꿈
+            -->
+            <pattern>%d %5p %c{2} - %m%n</pattern>
+        </encoder>
+    </appender>
+    
+    <!-- 루트 로거 설정
+         기본 로그 레벨을 INFO로 설정하여 INFO 이상의 로그만 출력
+    -->
+    <root level="INFO">
+        <appender-ref ref="stdout" /> <!-- stdout appender를 루트 로거에 연결 -->
+    </root>
+
+    <!-- 특정 패키지에 대한 로그 레벨 설정
+         Spring JDBC 관련 로그를 DEBUG 레벨로 설정하여 보다 상세한 로그 출력
+    -->
+    <logger name="org.springframework.jdbc" level="DEBUG" />
+</configuration>
