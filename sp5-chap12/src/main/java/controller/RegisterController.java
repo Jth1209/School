@@ -1,14 +1,9 @@
 package controller;
 
-import javax.validation.Valid;
-
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.validation.Errors;
-import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -16,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import spring.DuplicateMemberException;
 import spring.MemberRegisterService;
 import spring.RegisterRequest;
-import spring.WrongIdPasswordException;
 
 @Controller
 public class RegisterController {
@@ -55,25 +49,18 @@ public class RegisterController {
 	}
 
 	@PostMapping("/register/step3")
-	public String handleStep3(@Valid RegisterRequest regReq , BindingResult errors) {
-//		new RegisterRequestValidator().validate(regReq, errors);
-		if(errors.hasErrors())//errors가 값을 가지고 있으면-
+	public String handleStep3(RegisterRequest regReq, Errors errors) {
+		new RegisterRequestValidator().validate(regReq, errors);
+		if (errors.hasErrors())
 			return "register/step2";
+
 		try {
 			memberRegisterService.regist(regReq);
 			return "register/step3";
 		} catch (DuplicateMemberException ex) {
-			//중복된 이메일을 사용했을 경우
-//			errors.rejectValue("email", "duplicate");
-//			errors.reject("notMatchingPassword");
-//			errors.rejectValue("email","notMatchingPassword");
+			errors.rejectValue("email", "duplicate");
 			return "register/step2";
 		}
 	}
-	
-//	@InitBinder
-//	protected void initBinder(WebDataBinder binder) {
-//		binder.setValidator(new RegisterRequestValidator());
-//	} 
 
 }
